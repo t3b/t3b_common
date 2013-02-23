@@ -30,7 +30,9 @@ namespace T3b\T3bCommon\ViewHelpers\Page;
 /**
  * @author Anno v. Heimburg <anno@vonheimurg.de>
  *
- * Renders the column from the current page
+ * Renders the column from the current page.
+ *
+ * See tsref for slide and slide.collect options
  *
  * Usage example:
  *
@@ -60,19 +62,39 @@ class ContentViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\BaseViewHelper
 
     /**
      * Render the column with the given number
-     * @param int $column
+     * @param int $column column to render
+     * @param int $slide slide mode, see tsref
+     * @param int $slideCollect slide.collect (see tsref, overrides and sets slide mode to -1)
+     * @param boolean $slideCollectFuzzy slide.collectFuzzy (see tsref, only works with collect)
+     * @param boolean $slideCollectReverse slide.collectRevers (see tsref, only works with collect)
      * @return string rendered html
      */
-    public function render($column = 0) {
+    public function render($column = 0, $slide = 0, $slideCollect = 0, $slideCollectFuzzy = FALSE, $slideCollectReverse = FALSE) {
         $colPos = intval($column);
         $cObject = $this->configurationManager->getContentObject();
 
+        $selectConfig = array();
+        $selectConfig['where'] = " colPos = $colPos";
+
         $contentConfig = array(
-            'select.' => array(
-                'where' => " colPos = $colPos"
-            ),
+            'select.' => $selectConfig,
             'table' => 'tt_content'
         );
+
+        if ($slideCollect !== 0) {
+            $slide = -1;
+            $slideConfig = array();
+
+            $slideConfig['collect'] = $slideCollect;
+            $slideConfig['collectFuzzy'] = $slideCollectFuzzy;
+            $slideConfig['collectReverse'] = $slideCollectReverse;
+
+            $contentConfig['slide.'] = $slideConfig;
+        }
+
+        if ($slide !== 0) {
+            $contentConfig['slide'] = $slide;
+        }
 
         $html = $cObject->CONTENT($contentConfig);
 
