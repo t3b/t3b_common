@@ -9,6 +9,11 @@
  */
 class TitleViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\BaseViewHelper
 {
+    /**
+     * Change the title of the current page
+     * @param string $title the page title
+     * @return string
+     */
     public function render($title = '') {
         if (empty($title)) {
             $title = $this->renderChildren();
