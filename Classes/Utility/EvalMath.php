@@ -86,7 +86,7 @@
 
  */
 
-namespace T3b\Common\Utility;
+namespace T3b\T3bCommon\Utility;
 
 class EvalMath {
 
@@ -116,7 +116,7 @@ class EvalMath {
 		$expr = trim($expr);
 		if (substr($expr, -1, 1) == ';')
 			$expr = substr($expr, 0, strlen($expr) - 1); // strip semicolons at the end
-			
+
 //===============
 		// is it a variable assignment?
 		if (preg_match('/^\s*([a-z]\w*)\s*=\s*(.+)$/', $expr, $matches)) {
@@ -179,7 +179,7 @@ class EvalMath {
 		$expr = trim(strtolower($expr));
 
 		$ops = array('+', '-', '*', '/', '^', '_');
-		$ops_r = array('+' => 0, '-' => 0, '*' => 0, '/' => 0, '^' => 1); // right-associative operator?  
+		$ops_r = array('+' => 0, '-' => 0, '*' => 0, '/' => 0, '^' => 1); // right-associative operator?
 		$ops_p = array('+' => 0, '-' => 0, '*' => 1, '/' => 1, '_' => 1, '^' => 2); // operator precedence
 
 		$expecting_op = false; // we use this in syntax-checking the expression
@@ -197,7 +197,7 @@ class EvalMath {
 			if ($op == '-' and !$expecting_op) { // is it a negation instead of a minus?
 				$stack->push('_'); // put a negation on the stack
 				$index++;
-			} elseif ($op == '_') { // we have to explicitly deny this, because it's legal on the stack 
+			} elseif ($op == '_') { // we have to explicitly deny this, because it's legal on the stack
 				return $this->trigger("illegal character '_'"); // but not in the input expression
 				//===============
 			} elseif ((in_array($op, $ops) or $ex) and $expecting_op) { // are we putting an operator on the stack?
@@ -289,7 +289,7 @@ class EvalMath {
 					break;
 				}
 			}
-			while (substr($expr, $index, 1) == ' ') { // step the index past whitespace (pretty much turns whitespace 
+			while (substr($expr, $index, 1) == ' ') { // step the index past whitespace (pretty much turns whitespace
 				$index++;							 // into implicit multiplication if no operator is there)
 			}
 		}
