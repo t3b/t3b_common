@@ -1,4 +1,7 @@
 <?php
+
+namespace T3b\T3bCommon\ViewHelpers\Head;
+
 /**
  * @author Anno v. Heimburg <anno@vonheimburg.de>
  *
