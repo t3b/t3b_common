@@ -43,14 +43,13 @@ class ContentElementViewHelper extends BaseViewHelper
      * @return string rendered content element
      */
     public function render($uids) {
-        $cObject = $this->configurationManager->getContentObject();
 
         $recordConfig = array(
             'tables' => 'tt_content',
             'source' => $uids,
         );
 
-        $html = $cObject->RECORDS($recordConfig);
+        $html = $this->cObject->RECORDS($recordConfig);
         return $html;
     }
 

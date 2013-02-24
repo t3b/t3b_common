@@ -76,7 +76,6 @@ class ContentViewHelper extends \T3b\T3bCommon\ViewHelpers\BaseViewHelper
      */
     public function render($column = 0, $slide = 0, $slideCollect = 0, $slideCollectFuzzy = FALSE, $slideCollectReverse = FALSE) {
         $colPos = intval($column);
-        $cObject = $this->configurationManager->getContentObject();
 
         $selectConfig = array();
         $selectConfig['where'] = " colPos = $colPos";
@@ -101,7 +100,7 @@ class ContentViewHelper extends \T3b\T3bCommon\ViewHelpers\BaseViewHelper
             $contentConfig['slide'] = $slide;
         }
 
-        $html = $cObject->CONTENT($contentConfig);
+        $html = $this->cObject->CONTENT($contentConfig);
 
         return $html;
     }

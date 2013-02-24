@@ -11,6 +11,11 @@ namespace T3b\T3bCommon\ViewHelpers;
 class BaseViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\BaseViewHelper
 {
     /**
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    protected $cObject;
+
+    /**
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      */
     protected $configurationManager;
@@ -22,6 +27,7 @@ class BaseViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\BaseViewHelper
     public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager)
     {
         $this->configurationManager = $configurationManager;
+        $this->cObject = $configurationManager->getContentObject();
     }
 
     /**
@@ -31,7 +37,7 @@ class BaseViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\BaseViewHelper
      */
     protected function isCached()
     {
-        $userObjType = $this->configurationManager->getContentObject()->getUserObjectType();
+        $userObjType = $this->cObject->getUserObjectType();
         return ($userObjType !== \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::OBJECTTYPE_USER_INT);
     }
 }
