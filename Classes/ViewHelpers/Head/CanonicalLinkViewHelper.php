@@ -37,7 +37,7 @@ namespace T3b\T3bCommon\ViewHelpers\Head;
  * @package T3bCommon
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class CanonicalLinkViewHelper extends \T3b\T3bCommon\ViewHelpers\PageRendererViewHelper
+class CanonicalLinkViewHelper extends HeaderViewHelper
 {
 
     /**
@@ -77,11 +77,7 @@ class CanonicalLinkViewHelper extends \T3b\T3bCommon\ViewHelpers\PageRendererVie
             $url = str_replace('&', '&amp;', $url);
         }
         $linkTag = '<link rel="canonical" href="' . $url . '"/>';
-        if ($this->isCached()) {
-            $this->pageRenderer->addHeaderData($linkTag);
-        } else {
-            $GLOBALS['TSFE']->additionalHeaderData[get_class($this)] = $linkTag;
-        }
+        $this->addPageHeader($linkTag, get_class($this));
     }
 
     /* =============================================
