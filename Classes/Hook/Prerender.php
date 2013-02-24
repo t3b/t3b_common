@@ -15,9 +15,9 @@ class PreRender
 
     public function __construct()
     {
-        /** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManagerInterface */
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\TYPO3\CMS\Extbase\ObjectManagerInterface');
-        $this->resourceService = $objectManager->get('\T3b\T3bCommon\Service\Resource');
+        /** @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManager */
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
+        $this->resourceService = $objectManager->get('T3b\T3bCommon\Service\Resource');
     }
 
     public function preRender($parameters, \TYPO3\CMS\Core\Page\PageRenderer $renderer)
