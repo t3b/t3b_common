@@ -32,43 +32,45 @@ namespace T3b\T3bCommon\ViewHelpers;
  *  parameter: TypoLink-Parameter, required
  *  target, class, title: will be written into the a-tag as specified
  */
-class TypolinkViewHelper extends BaseViewHelper
+class TypoLinkViewHelper extends BaseViewHelper
 {
 
-    public function initializeArguments() {
-        $this->registerArgument('parameter', 'string', 'Parameter for typolink', TRUE);
-        $this->registerArgument('class', 'string', 'CSS Classes', FALSE, '');
-        $this->registerArgument('target', 'string', 'Link target', FALSE, '');
-        $this->registerArgument('title', 'string', 'Link title', FALSE, '');
-    }
-
-    public function render() {
+    /**
+     * Wrap content in link using typolink
+     *
+     * @param string $parameter Parameter for typolink
+     * @param string $class CSS Classes
+     * @param string $target Link target
+     * @param string $title Link title
+     * @return string Linked content
+     */
+    public function render($parameter, $class = '', $target = '', $title = '') {
         $content = $this->renderChildren();
 
-        $typolinkConfig = array();
-        $typolinkConfig['parameter'] = $this->arguments['parameter'];
+        $typoLinkConfig = array();
+        $typoLinkConfig['parameter'] = $parameter;
 
-        if ($this->arguments['title']) {
-            $typolinkConfig['title'] = $this->arguments['title'];
+        if ($title) {
+            $typoLinkConfig['title'] = $title;
         }
 
         // a tag params
         $aTagParams = array();
 
-        if ($this->arguments['class']) {
-            $aTagParams[] = 'class="' . $this->arguments['class'] . '"';
+        if ($class) {
+            $aTagParams[] = 'class="' . $class . '"';
         }
 
-        if ($this->arguments['target']) {
-            $aTagParams[] = 'target="' . $this->arguments['target'] . '"';
+        if ($target) {
+            $aTagParams[] = 'target="' . $target . '"';
         }
 
         if (! empty($aTagParams)) {
-            $typolinkConfig['ATagParams'] = implode(' ', $aTagParams);
+            $typoLinkConfig['ATagParams'] = implode(' ', $aTagParams);
         }
 
 
-        $html = $this->cObject->typoLink($content, $typolinkConfig);
+        $html = $this->cObject->typoLink($content, $typoLinkConfig);
 
         return $html;
     }
