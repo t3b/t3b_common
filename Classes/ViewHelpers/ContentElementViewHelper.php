@@ -36,22 +36,8 @@ namespace T3b\T3bCommon\ViewHelpers;
  * <t3b:contentElement uids="93" />
  * <t3b:contentElement uids="93,8,77" />
  */
-class ContentElementViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\BaseViewHelper
+class ContentElementViewHelper extends BaseViewHelper
 {
-    /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     */
-    protected $configurationManager;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-     * @return void
-     */
-    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager)
-    {
-        $this->configurationManager = $configurationManager;
-    }
-
     /**
      * @param string $uids comma-seperated list of content elements to render
      * @return string rendered content element

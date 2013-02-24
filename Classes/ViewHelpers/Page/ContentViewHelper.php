@@ -42,24 +42,29 @@ namespace T3b\T3bCommon\ViewHelpers\Page;
  * <t3b:page.content column="3" />
  * Renders column 3
  *
- * Does not take any body
+ * Does not take any body.
+ *
+ * Also supports slide-options, documentation copied from tsref:
+ *
+ * <dl>
+ *
+ * <dt>slide</dt>
+ * <dd>If set and no content element is found by the select command, then the rootLine will be traversed back until some content is found.
+ *  Possible values are "-1" (slide back up to the siteroot), "1" (only the current level) and "2" (up from one level back). Use -1 in combination with collect.
+ * </dd>
+ *
+ * <dt>slideCollect</dt>
+ * <dd> If set, all content elements found on current and parent pages will be collected. Otherwise, the sliding would stop after the first hit. Set this value to the amount of levels to collect on, or use "-1" to collect up to the siteroot.</dd>
+ *
+ * <dt>slideCollectFuzzy</dt>
+ * <dd>Only useful in collect mode. If no content elements have been found for the specified depth in collect mode, traverse further until at least one match has occurred.</dd>
+ *
+ * <dt>slideCollectReverse</dt>
+ * <dd>Change order of elements in collect mode. If set, elements of the current page will be at the bottom.</dd>
+ * </dl>
  */
-class ContentViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\BaseViewHelper
+class ContentViewHelper extends \T3b\T3bCommon\ViewHelpers\BaseViewHelper
 {
-    /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     */
-    protected $configurationManager;
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
-     * @return void
-     */
-    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager)
-    {
-        $this->configurationManager = $configurationManager;
-    }
-
     /**
      * Render the column with the given number
      * @param int $column column to render
