@@ -106,8 +106,12 @@ class Resource implements \TYPO3\CMS\Core\SingletonInterface
      */
     protected function isCached()
     {
-        $userObjType = $this->configurationManager->getContentObject()->getUserObjectType();
-        return ($userObjType !== \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::OBJECTTYPE_USER_INT);
+		$isCached = FALSE;
+		if ($contentObject = $this->configurationManager->getContentObject()) {
+			$userObjType = $contentObject->getUserObjectType();
+			$isCached = $userObjType !== \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::OBJECTTYPE_USER_INT;
+		}
+		return $isCached;
     }
 
     /**
